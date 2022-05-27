@@ -1,0 +1,12 @@
+node_modules
+
+# hardhat
+artifacts
+cache
+deployments
+typechain-types
+
+# intellij
+.DS_Store
+.idea
+*.iml
