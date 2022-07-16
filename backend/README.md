@@ -1,5 +1,5 @@
 # Message - Smart contract
-The code repository is a backend part of our article series - [Introduction to Web3 application development](https://chainkraft.com)
+The code repository is a backend part of our article series - [Introduction to Web3 application development](https://chainkraft.com/pl/kurs-web3-smart-kontrakt/)
 
 ## Installation
 Prerequisites:
@@ -49,4 +49,4 @@ npm run test
 ```
 
 ## License
-[Chainkraft.com](https://chainkraft.com) - Licensed [MIT](https://github.com/chainkraft/stats/blob/master/LICENSE).
+[Chainkraft.com](https://chainkraft.com) - Licensed [MIT](https://github.com/Chainkraft/message/blob/master/LICENSE).
