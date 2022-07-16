@@ -15,7 +15,7 @@ When a message is no longer active the fee paid by the ex message owner can be w
 
 Applications:
 - [Backend](backend/README.md)
-- [Frontend]()
+- [Frontend](frontend/README.md)
 
 Technology stack:
 - Backend:
