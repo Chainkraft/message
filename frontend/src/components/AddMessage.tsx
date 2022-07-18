@@ -13,9 +13,9 @@ import {
     Fab,
     FormControl,
     Input,
-    InputLabel,
+    InputLabel, Snackbar,
 } from "@mui/material";
-import {getMessageContract, walletProvider} from "../config/Blockchain";
+import {getMessageContract, getWalletProvider} from "../config/Blockchain";
 
 const AddMessage = () => {
     const [form, setForm] = useState({
@@ -27,15 +27,24 @@ const AddMessage = () => {
     const [loading, setLoading] = useState(false);
     const [processingTx, setProcessingTx] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
+    const [walletError, setWalletError] = useState(false);
 
     const handleDialogOpen = async () => {
+        if(window.ethereum === undefined) {
+            setWalletError(true);
+            return;
+        }
+
         setLoading(true);
 
+        // Gets MetaMask provider
+        const provider = getWalletProvider();
+
         // MetaMask requires requesting permission to connect users accounts
-        await walletProvider.send("eth_requestAccounts", []);
+        await provider.send("eth_requestAccounts", []);
 
         // Creates contract connector instance using MetaMask provider
-        const contract = getMessageContract(walletProvider);
+        const contract = getMessageContract(provider);
 
         // Updates form state variable setting minimum price required to change the displayed message
         setForm({
@@ -49,11 +58,14 @@ const AddMessage = () => {
     const handlePublish = async () => {
         setProcessingTx(true);
 
+        // Gets MetaMask provider
+        const provider = getWalletProvider();
+
         // Gets MetaMask account as a Signer
-        const signer = walletProvider.getSigner();
+        const signer = provider.getSigner();
 
         // Creates contract connector instance using MetaMask provider
-        const contract = getMessageContract(walletProvider);
+        const contract = getMessageContract(provider);
 
         // Connects contract to the Signer allowing making payments to send state-changing transactions
         const contractWithSigner = contract.connect(signer);
@@ -133,6 +145,12 @@ const AddMessage = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Snackbar open={walletError} autoHideDuration={6000}>
+                <Alert severity="error">
+                    Install MetaMask plugin to add a message
+                </Alert>
+            </Snackbar>
         </div>
     );
 };

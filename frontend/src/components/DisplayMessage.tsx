@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Backdrop, CircularProgress, Container, Typography,} from "@mui/material";
-import {alchemyProvider, getMessageContract} from "../config/Blockchain";
+import {getAlchemyProvider, getMessageContract} from "../config/Blockchain";
 
 const DisplayMessage = () => {
     const [message, setMessage] = useState("");
@@ -8,7 +8,7 @@ const DisplayMessage = () => {
 
     useEffect(() => {
         // Creates contract connector instance using Alchemy provider
-        const contract = getMessageContract(alchemyProvider);
+        const contract = getMessageContract(getAlchemyProvider());
 
         // Displays message from the contract on component load
         contract.message().then((newMessage: string) => {
